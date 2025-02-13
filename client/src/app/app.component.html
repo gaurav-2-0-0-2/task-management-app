@@ -1,1 +1,6 @@
+<nav class="bg-red-200 flex justify-center gap-4 py-3">
+  <a routerLink="/">Home</a>
+  <a *ngIf="isAuth" routerLink="/tasks">Tasks</a>
+  <a *ngIf="!isAuth" routerLink="/login">Login</a>
+</nav>
 <router-outlet />

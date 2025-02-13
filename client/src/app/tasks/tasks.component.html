@@ -1,0 +1,71 @@
+<div class="flex flex-col items-center justify-center space-y-2 mt-12">
+  <h1 class="text-center text-xl font-bold">Create Task</h1>
+  <form
+    [formGroup]="createTaskForm"
+    (ngSubmit)="onSubmit(model)"
+    class="w-full max-w-md"
+  >
+    <formly-form
+      class="mx-auto"
+      [form]="createTaskForm"
+      [fields]="fields"
+      [model]="model"
+    ></formly-form>
+    <button
+      type="submit"
+      class="font-bold mt-4 w-full bg-blue-500 py-2 rounded"
+    >
+      Add
+    </button>
+  </form>
+</div>
+
+<!-- Edit Task Form -->
+
+<div class="flex flex-col items-center justify-center space-y-2 mt-12">
+  <h1 class="text-center text-xl font-bold">Tasks</h1>
+  <div class="w-full max-w-md">
+    <ul class="space-y-2">
+      <li *ngFor="let task of tasks" class="bg-gray-100 p-4 rounded">
+        <div class="flex items-center justify-between">
+          <h2 class="font-bold text-lg">{{ task.title }}</h2>
+          <p
+            class="text-xs font-bold inline px-2 py-1 rounded-full"
+            [ngClass]="{
+              'text-green-700 bg-green-100': task.status === 'completed',
+              'text-yellow-500 bg-white': task.status === 'pending',
+            }"
+          >
+            {{ task.status }}
+          </p>
+        </div>
+        <p>{{ task.description }}</p>
+        <div class="mt-4 items-center flex gap-3 justify-end">
+          <button
+            class="font-bold bg-green-500 px-2 text-white rounded"
+            (click)="markCompleted(task.id)"
+            [disabled]="task.status === 'completed'"
+            [ngClass]="{
+              'cursor-pointer': task.status === 'pending',
+              'cursor-not-allowed bg-gray-300': task.status === 'completed'
+            }"
+          >
+            Mark Completed
+          </button>
+          <button
+            class="font-bold bg-blue-500 px-2 text-white rounded cursor-pointer"
+            (click)="onEdit(task)"
+          >
+            Edit
+          </button>
+          <button
+            class="font-bold bg-red-500 px-2 rounded cursor-pointer"
+            (click)="onDelete(task.id)"
+          >
+            Delete
+          </button>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>

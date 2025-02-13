@@ -1,0 +1,9 @@
+<p>{{errMessage}}</p> 
+<div class="flex flex-col items-center justify-center space-y-2 mt-12">
+  <h1 class="text-center text-3xl font-bold">User Login Form</h1> 
+  <form [formGroup]="loginForm" (ngSubmit)="onSubmit(model)" class="w-full max-w-md">
+    <formly-form class="mx-auto" [form]="loginForm" [fields]="fields" [model]="model"></formly-form>
+    <button type="submit" class="font-bold text-[#ffffff] mt-4 w-full bg-blue-500 py-2 rounded">Submit</button>
+  </form>
+  <p>If not logged in then <a href='/signup'>register</a></p> 
+</div> 

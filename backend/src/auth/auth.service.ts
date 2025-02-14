@@ -32,7 +32,7 @@ export class AuthService {
       }
       const salt = bcrypt.genSaltSync(10);
       const hashedPassword = bcrypt.hashSync(password, salt);
-      await this.userModel.create({
+      const newUser = await this.userModel.create({
         name,
         email,
         password: hashedPassword
@@ -40,9 +40,9 @@ export class AuthService {
       return {
         message: 'Signup Success',
         user: {
-          id: user?.id,
-          name: user?.name,
-          email: user?.email,
+          id: newUser.id,
+          name: newUser.name,
+          email: newUser.email,
         }
       };
     }catch(err){

@@ -59,6 +59,7 @@ export class TasksComponent implements OnInit {
 
   createTaskForm = new FormGroup({});
   model: any;
+  // Custom Formly fields for creating a task
   fields: FormlyFieldConfig[] = [
     {
       key: "title",
@@ -95,6 +96,7 @@ export class TasksComponent implements OnInit {
     }
   }
 
+  // use an observable instead
   fetchTasks(): any {
     this.httpClient
       .get(`http://localhost:5000/task/all/${this.model.userId}`)
@@ -109,49 +111,6 @@ export class TasksComponent implements OnInit {
       });
   }
 
-  // Code for Modal that opens up when edit button is clicked
-  // editTaskForm = new FormGroup({});
-  // editTaskModel: any;
-  // editTaskFields: FormlyFieldConfig[] = [
-  //   {
-  //     key: "title",
-  //     type: "input",
-  //     props: {
-  //       placeholder: "Enter Title",
-  //       required: true,
-  //     },
-  //   },
-  //   {
-  //     key: "description",
-  //     type: "textarea",
-  //     props: {
-  //       placeholder: "Enter Description",
-  //       required: true,
-  //     },
-  //   },
-  // ];
-
-  //onEdit(task: ITask): void {
-  //  const modalRef = this.modalService.create({
-  //    nzTitle: "Edit Task",
-  //    nzContent: EditTaskModalComponent,
-  //    nzData: {
-  //      task: task,
-  //    },
-  //    nzOnOk: (instance) => {
-  //      if (instance) {
-  //        this.onSubmitEditTask(instance.editTaskModel);
-  //      }
-  //    },
-  //  });
-
-  //  modalRef.afterClose.subscribe((result) => {
-  //    if (result) {
-  //      this.onSubmitEditTask(result);
-  //    }
-  //  });
-  //}
-  
   onEdit(task: ITask): void {
     const modalRef = this.modalService.create({
       nzTitle: "Edit Task",

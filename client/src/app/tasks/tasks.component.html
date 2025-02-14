@@ -25,47 +25,58 @@
 <div class="flex flex-col items-center justify-center space-y-2 mt-12">
   <h1 class="text-center text-xl font-bold">Tasks</h1>
   <div class="w-full max-w-md">
-    <ul class="space-y-2">
-      <li *ngFor="let task of tasks" class="bg-gray-100 p-4 rounded">
-        <div class="flex items-center justify-between">
-          <h2 class="font-bold text-lg">{{ task.title }}</h2>
-          <p
-            class="text-xs font-bold inline px-2 py-1 rounded-full"
-            [ngClass]="{
-              'text-green-700 bg-green-100': task.status === 'completed',
-              'text-yellow-500 bg-white': task.status === 'pending',
-            }"
-          >
-            {{ task.status }}
-          </p>
-        </div>
-        <p>{{ task.description }}</p>
-        <div class="mt-4 items-center flex gap-3 justify-end">
-          <button
-            class="font-bold bg-green-500 px-2 text-white rounded"
-            (click)="markCompleted(task.id)"
-            [disabled]="task.status === 'completed'"
-            [ngClass]="{
-              'cursor-pointer': task.status === 'pending',
-              'cursor-not-allowed bg-gray-300': task.status === 'completed'
-            }"
-          >
-            Mark Completed
-          </button>
-          <button
-            class="font-bold bg-blue-500 px-2 text-white rounded cursor-pointer"
-            (click)="onEdit(task)"
-          >
-            Edit
-          </button>
-          <button
-            class="font-bold bg-red-500 px-2 rounded cursor-pointer"
-            (click)="onDelete(task.id)"
-          >
-            Delete
-          </button>
-        </div>
-      </li>
+    <ul>
+      <div *ngIf="tasks.length > 0;else noTasks" class="space-y-2">
+        <li *ngFor="let task of tasks" class="bg-gray-100 p-4 rounded">
+          <p>{{task.createdAt | date: 'medium'}}</p>
+          <div class="flex items-center justify-between">
+            <h2 class="font-bold text-lg">{{ task.title }}</h2>
+            <p
+              class="text-xs font-bold inline px-2 py-1 rounded-full"
+              [ngClass]="{
+                'text-green-700 bg-green-100': task.status === 'completed',
+                'text-yellow-500 bg-white': task.status === 'pending',
+              }"
+            >
+              {{ task.status }}
+            </p>
+          </div>
+          <p>{{ task.description }}</p>
+          <div class="mt-4 items-center flex gap-3 justify-end">
+            <button
+              class="font-bold px-2 rounded"
+              (click)="markCompleted(task.id)"
+              [disabled]="task.status === 'completed'"
+              [ngClass]="{
+                'cursor-pointer bg-green-500': task.status === 'pending',
+                'cursor-not-allowed bg-gray-300': task.status === 'completed'
+              }"
+            >
+              Mark Completed
+            </button>
+            <button
+              class="font-bold px-2 text-white rounded"
+              (click)="onEdit(task)"
+              [disabled]="task.status === 'completed'"
+              [ngClass]="{
+                'bg-blue-500 cursor-pointer': task.status === 'pending',
+                'bg-gray-300 cursor-not-allowed': task.status === 'completed'
+              }"
+            >
+              Edit
+            </button>
+            <button
+              class="font-bold bg-red-500 px-2 rounded cursor-pointer"
+              (click)="onDelete(task.id)"
+            >
+              Delete
+            </button>
+          </div>
+        </li>
+      </div>
     </ul>
+    <ng-template #noTasks>
+      <p class="text-center text-gray-500 mt-4">No Tasks</p>
+    </ng-template>
   </div>
 </div>
